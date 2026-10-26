@@ -1,0 +1,1656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beyond the Middle Aisles - UNC Charlotte AI Market</title>
+    
+    <!-- Tailwind CSS with safe window initialization -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Safe setup for Tailwind configuration
+        window.tailwind = window.tailwind || {};
+        window.tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ninerGreen: '#00703C',
+                        ninerGold: '#A4915C',
+                        ninerDarkGreen: '#004D28',
+                        ninerLightGreen: '#E6F4ED',
+                        storeYellow: '#FFF4CC',
+                        storeOrange: '#FF9F43',
+                        storeRed: '#EE5253',
+                        storePink: '#FF9FF3',
+                        storePurple: '#54a0ff'
+                    },
+                    fontFamily: {
+                        cartoon: ['Fredoka', 'Comic Sans MS', 'Fredoka One', 'cursive', 'sans-serif'],
+                        sans: ['Nunito', 'Segoe UI', 'Roboto', 'sans-serif'],
+                        receipt: ['VT323', 'Courier New', 'monospace']
+                    }
+                }
+            }
+        };
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@400;600;700;800;900&family=VT323&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Nunito', Segoe UI, sans-serif;
+            background-color: #f4f0e6;
+            background-image: radial-gradient(#00703c1a 1.5px, transparent 1.5px);
+            background-size: 24px 24px;
+            user-select: none;
+            -webkit-user-select: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .font-cartoon {
+            font-family: 'Fredoka', 'Comic Sans MS', cursive, sans-serif;
+        }
+
+        /* Cartoon Card Border & Shadow Effects */
+        .cartoon-card {
+            border: 3px solid #1e293b;
+            box-shadow: 4px 5px 0px #1e293b;
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .cartoon-card:hover {
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 6px 8px 0px #1e293b;
+        }
+
+        .cartoon-card:active {
+            transform: translateY(2px);
+            box-shadow: 2px 2px 0px #1e293b;
+        }
+
+        .cartoon-btn {
+            border: 3px solid #1e293b;
+            box-shadow: 3px 4px 0px #1e293b;
+            transition: all 0.15s ease;
+            cursor: pointer;
+        }
+
+        .cartoon-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 4px 6px 0px #1e293b;
+        }
+
+        .cartoon-btn:active {
+            transform: translateY(2px);
+            box-shadow: 1px 1px 0px #1e293b;
+        }
+
+        /* Grocery Shelf Background Gradient */
+        .grocery-shelf {
+            background: linear-gradient(180deg, #e2e8f0 0%, #cbd5e1 70%, #94a3b8 100%);
+            border-bottom: 8px solid #475569;
+            box-shadow: inset 0 -4px 6px rgba(0,0,0,0.12);
+        }
+
+        .wood-shelf {
+            background: linear-gradient(180deg, #fcd34d 0%, #d97706 80%, #92400e 100%);
+            border-bottom: 10px solid #78350f;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e2e8f0;
+            border-radius: 8px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #00703C;
+            border-radius: 8px;
+        }
+
+        /* Receipt styling */
+        .receipt-paper {
+            background: #ffffff;
+            background-image: repeating-linear-gradient(#fff, #fff 24px, #f8fafc 24px, #f8fafc 25px);
+        }
+
+        .receipt-zigzag {
+            position: relative;
+        }
+        .receipt-zigzag::before {
+            content: "";
+            position: absolute;
+            top: -12px;
+            left: 0;
+            right: 0;
+            height: 12px;
+            background: radial-gradient(circle, transparent, transparent 50%, #ffffff 50%, #ffffff 100%);
+            background-size: 16px 20px;
+        }
+        .receipt-zigzag::after {
+            content: "";
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            right: 0;
+            height: 12px;
+            background: radial-gradient(circle, transparent, transparent 50%, #ffffff 50%, #ffffff 100%);
+            background-size: 16px 20px;
+            transform: rotate(180deg);
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 15px rgba(0, 112, 60, 0.4); }
+            50% { box-shadow: 0 0 25px rgba(0, 112, 60, 0.8); }
+        }
+        .pulse-niner {
+            animation: pulse-glow 2s infinite;
+        }
+    </style>
+</head>
+<body class="min-h-screen text-slate-800 flex flex-col justify-between">
+
+    <!-- Header & Navigation Bar -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b-4 border-slate-900 px-4 py-3 shadow-md">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+            
+            <!-- Brand & Title -->
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('market')">
+                <div class="w-12 h-12 bg-emerald-700 rounded-2xl border-2 border-slate-900 flex items-center justify-center text-white text-2xl shadow-[2px_3px_0px_#1e293b]">
+                    🛒
+                </div>
+                <div>
+                    <span class="bg-amber-400 text-slate-900 text-xs font-black uppercase tracking-wider px-2 py-0.5 rounded-md border border-slate-900">UNC Charlotte AAC&U Presentation</span>
+                    <h1 class="font-cartoon text-xl md:text-2xl font-bold text-emerald-900 leading-tight">
+                        BEYOND THE MIDDLE AISLES
+                    </h1>
+                </div>
+            </div>
+
+            <!-- Stats Bar & Actions -->
+            <div class="flex items-center space-x-2 md:space-x-4">
+                <!-- Shopping Cart Summary -->
+                <button onclick="openCartModal()" class="cartoon-btn bg-emerald-100 hover:bg-emerald-200 text-slate-900 px-3 py-1.5 rounded-xl flex items-center gap-2 font-bold text-sm">
+                    <span class="text-xl">🛒</span>
+                    <span id="header-cart-count" class="bg-emerald-700 text-white text-xs px-2 py-0.5 rounded-full font-black">0</span>
+                    <span class="hidden sm:inline"> Cart</span>
+                </button>
+
+                <!-- Literacy Points Score -->
+                <div class="cartoon-card bg-amber-100 px-3 py-1.5 rounded-xl flex items-center gap-2 font-bold text-sm">
+                    <span class="text-xl">⭐</span>
+                    <div>
+                        <span class="text-[10px] text-amber-800 block leading-3 uppercase font-extrabold">Niner Points</span>
+                        <span id="header-points" class="font-black text-amber-900 text-base">0</span>
+                    </div>
+                </div>
+
+                <!-- Sound Toggle -->
+                <button id="sound-btn" onclick="toggleAudio()" class="cartoon-btn bg-slate-100 hover:bg-slate-200 p-2 rounded-xl text-slate-700 font-bold" title="Toggle Sound">
+                    🔊
+                </button>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <nav class="max-w-7xl mx-auto mt-2 pt-2 border-t border-slate-200 flex items-center gap-2 overflow-x-auto pb-1 text-xs md:text-sm font-bold">
+            <button onclick="switchTab('market')" id="nav-market" class="nav-btn bg-emerald-700 text-white px-3 py-1.5 rounded-xl border-2 border-slate-900 flex items-center gap-1.5 shrink-0">
+                🏪 Market Floor
+            </button>
+            <button onclick="switchTab('game')" id="nav-game" class="nav-btn bg-white text-slate-800 px-3 py-1.5 rounded-xl border-2 border-slate-900 hover:bg-amber-100 flex items-center gap-1.5 shrink-0">
+                🎮 Arcade Mini-Game
+            </button>
+            <button onclick="switchTab('recipe')" id="nav-recipe" class="nav-btn bg-white text-slate-800 px-3 py-1.5 rounded-xl border-2 border-slate-900 hover:bg-sky-100 flex items-center gap-1.5 shrink-0">
+                🍳 AI Blueprint Recipe
+            </button>
+            <button onclick="switchTab('ideas')" id="nav-ideas" class="nav-btn bg-white text-slate-800 px-3 py-1.5 rounded-xl border-2 border-slate-900 hover:bg-rose-100 flex items-center gap-1.5 shrink-0">
+                💡 Submit AAC&U Idea
+            </button>
+            <button onclick="switchTab('checkout')" id="nav-checkout" class="nav-btn bg-white text-slate-800 px-3 py-1.5 rounded-xl border-2 border-slate-900 hover:bg-purple-100 flex items-center gap-1.5 shrink-0 ml-auto">
+                🧾 Checkout & Receipt
+            </button>
+        </nav>
+    </header>
+
+    <!-- MAIN GAME CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 py-6 flex-grow w-full">
+
+        <!-- ================= TAB 1: THE MARKET FLOOR ================= -->
+        <section id="tab-market" class="tab-content space-y-6">
+            
+            <!-- Welcome Banner -->
+            <div class="cartoon-card bg-gradient-to-r from-emerald-800 via-emerald-700 to-emerald-900 text-white p-6 rounded-3xl relative overflow-hidden">
+                <div class="relative z-10 max-w-3xl">
+                    <div class="inline-flex items-center gap-2 bg-amber-400 text-slate-900 font-extrabold px-3 py-1 rounded-full text-xs uppercase mb-3 border border-slate-900">
+                        <span>🥬</span> UNC Charlotte AI Market for Teaching & Learning
+                    </div>
+                    <h2 class="font-cartoon text-3xl md:text-5xl font-black mb-3 text-amber-300 drop-shadow-[2px_2px_0px_#000]">
+                        Shop For AI Ideas!
+                    </h2>
+                    <p class="text-sm md:text-base font-semibold leading-relaxed text-emerald-50">
+                        Welcome to UNC Charlotte's interactive AI Market! Sustainable AI transformation requires coordinated investments in <span class="text-amber-300 font-black">Leadership, Curriculum, Faculty Development, Governance, and Community</span> — not simply shiny AI tools. Explore our store aisles, fill your cart, and cook up a sustainable campus recipe!
+                    </p>
+                    
+                    <div class="mt-4 flex flex-wrap gap-2 text-xs font-bold">
+                        <span class="bg-white/20 px-2.5 py-1 rounded-lg backdrop-blur-sm border border-white/30">🎓 UNC Charlotte R1 Status in 2025</span>
+                        <span class="bg-white/20 px-2.5 py-1 rounded-lg backdrop-blur-sm border border-white/30">👥 Dynamic Student Population</span>
+                        <span class="bg-white/20 px-2.5 py-1 rounded-lg backdrop-blur-sm border border-white/30">🏛️ Center for Teaching & Learning (CTL)</span>
+                    </div>
+                </div>
+
+                <div class="hidden lg:block absolute right-6 -bottom-6 text-9xl opacity-20 pointer-events-none select-none">
+                    🛒
+                </div>
+            </div>
+
+            <!-- Department Filter Bar -->
+            <div class="flex items-center justify-between flex-wrap gap-3 bg-white p-3 rounded-2xl border-2 border-slate-900 shadow-sm">
+                <div class="flex items-center gap-2 font-black text-sm text-slate-700">
+                    <span>🔍</span> Store Aisles:
+                </div>
+                <div class="flex flex-wrap gap-1.5 text-xs font-bold" id="aisle-filter-container">
+                    <button onclick="filterAisles('all')" class="filter-btn active-filter px-3 py-1.5 rounded-xl border border-slate-900 bg-emerald-700 text-white">All Aisles</button>
+                    <button onclick="filterAisles('specials')" class="filter-btn px-3 py-1.5 rounded-xl border border-slate-900 bg-amber-100 text-slate-800 hover:bg-amber-200">⭐ Manager Specials</button>
+                    <button onclick="filterAisles('pantry')" class="filter-btn px-3 py-1.5 rounded-xl border border-slate-900 bg-emerald-100 text-slate-800 hover:bg-emerald-200">🥫 Faculty Pantry</button>
+                    <button onclick="filterAisles('produce')" class="filter-btn px-3 py-1.5 rounded-xl border border-slate-900 bg-rose-100 text-slate-800 hover:bg-rose-200">🍎 Fresh Produce</button>
+                    <button onclick="filterAisles('tools')" class="filter-btn px-3 py-1.5 rounded-xl border border-slate-900 bg-sky-100 text-slate-800 hover:bg-sky-200">🛠️ Campus Tools</button>
+                    <button onclick="filterAisles('kitchen')" class="filter-btn px-3 py-1.5 rounded-xl border border-slate-900 bg-purple-100 text-slate-800 hover:bg-purple-200">🧪 Test Kitchen</button>
+                    <button onclick="filterAisles('lounge')" class="filter-btn px-3 py-1.5 rounded-xl border border-slate-900 bg-orange-100 text-slate-800 hover:bg-orange-200">☕ Community Lounge</button>
+                    <button onclick="filterAisles('ctl')" class="filter-btn px-3 py-1.5 rounded-xl border border-slate-900 bg-teal-100 text-slate-800 hover:bg-teal-200">💁 Customer Service CTL</button>
+                    <button onclick="filterAisles('challenges')" class="filter-btn px-3 py-1.5 rounded-xl border border-slate-900 bg-slate-200 text-slate-800 hover:bg-slate-300">⚠️ Accelerators & Challenges</button>
+                </div>
+            </div>
+
+            <!-- STORE AISLES CONTAINER -->
+            <div id="aisles-container" class="space-y-10">
+                <!-- Dynamically generated store aisles render here -->
+            </div>
+        </section>
+
+
+        <!-- ================= TAB 2: CONVEYOR BELT ARCADE MINI-GAME ================= -->
+        <section id="tab-game" class="tab-content hidden space-y-6">
+            <div class="cartoon-card bg-amber-400 p-6 rounded-3xl text-slate-900 border-4 border-slate-900">
+                <div class="flex flex-wrap items-center justify-between gap-4">
+                    <div>
+                        <div class="inline-block bg-slate-900 text-amber-300 text-xs font-black px-3 py-1 rounded-full uppercase mb-1">
+                            Arcade Mini-Game
+                        </div>
+                        <h2 class="font-cartoon text-3xl font-black">AI Grocery Bagging Rush!</h2>
+                        <p class="font-bold text-slate-800 text-sm max-w-xl">
+                            Items are coming down the UNC Charlotte Market conveyor belt! Sort each AI initiative into the correct store department bin before time runs out!
+                        </p>
+                    </div>
+                    
+                    <div class="flex items-center gap-4 bg-slate-900 text-white px-5 py-3 rounded-2xl border-2 border-slate-900">
+                        <div class="text-center">
+                            <div class="text-xs text-amber-400 font-black uppercase">Time</div>
+                            <div id="game-timer" class="text-2xl font-black font-receipt text-amber-300">30s</div>
+                        </div>
+                        <div class="h-8 w-0.5 bg-slate-700"></div>
+                        <div class="text-center">
+                            <div class="text-xs text-emerald-400 font-black uppercase">Score</div>
+                            <div id="game-score" class="text-2xl font-black font-receipt text-emerald-300">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Arena Canvas / Interactive Zone -->
+            <div class="cartoon-card bg-slate-800 p-6 rounded-3xl border-4 border-slate-900 min-h-[420px] flex flex-col justify-between relative overflow-hidden text-white">
+                
+                <!-- Start Overlay -->
+                <div id="game-start-overlay" class="absolute inset-0 bg-slate-900/95 backdrop-blur-sm z-20 flex flex-col items-center justify-center p-6 text-center">
+                    <div class="text-6xl mb-3 animate-bounce">🛒</div>
+                    <h3 class="font-cartoon text-3xl font-black text-amber-400 mb-2">Ready to Sort AI Initiatives?</h3>
+                    <p class="text-slate-300 max-w-md text-sm mb-6 font-semibold">
+                        Demonstrate your AI store literacy! Assign each incoming item to Manager Specials, Faculty Pantry, Student Fresh Produce, or Campus Tools!
+                    </p>
+                    <button onclick="startGame()" class="cartoon-btn bg-emerald-600 text-white text-lg font-black px-8 py-3 rounded-2xl border-2 border-slate-900 hover:bg-emerald-500 pulse-niner">
+                        🚀 Start Grocery Sorter
+                    </button>
+                </div>
+
+                <!-- Conveyor Belt Display -->
+                <div class="relative w-full bg-slate-900 rounded-2xl p-6 border-2 border-slate-700 flex flex-col items-center justify-center min-h-[180px] shadow-inner">
+                    <div class="text-xs text-slate-400 uppercase tracking-widest font-black mb-2">Item on Conveyor Belt</div>
+                    
+                    <div id="current-item-box" class="cartoon-card bg-white text-slate-900 p-4 rounded-2xl flex items-center gap-4 min-w-[280px] max-w-md">
+                        <span id="game-item-emoji" class="text-4xl">❓</span>
+                        <div>
+                            <h4 id="game-item-title" class="font-cartoon font-black text-lg leading-snug">Press Start</h4>
+                            <p id="game-item-desc" class="text-xs font-semibold text-slate-600">Get ready to sort!</p>
+                        </div>
+                    </div>
+
+                    <!-- Animated Conveyor Stripes -->
+                    <div class="w-full h-4 bg-slate-700 rounded-full mt-6 overflow-hidden relative border border-slate-600">
+                        <div class="absolute inset-0 bg-[linear-gradient(90deg,#475569_50%,#334155_50%)] bg-[length:20px_100%] animate-[ping_1.5s_infinite]"></div>
+                    </div>
+                </div>
+
+                <!-- Target Bins -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6">
+                    <button onclick="submitGameAnswer('specials')" class="cartoon-btn bg-amber-500 hover:bg-amber-400 text-slate-900 p-3 rounded-2xl border-2 border-slate-900 font-black text-xs md:text-sm flex flex-col items-center gap-1">
+                        <span class="text-2xl">⭐</span>
+                        <span>Manager Specials</span>
+                        <span class="text-[10px] font-normal opacity-80">(Leadership & Steering)</span>
+                    </button>
+
+                    <button onclick="submitGameAnswer('pantry')" class="cartoon-btn bg-emerald-500 hover:bg-emerald-400 text-slate-900 p-3 rounded-2xl border-2 border-slate-900 font-black text-xs md:text-sm flex flex-col items-center gap-1">
+                        <span class="text-2xl">🥫</span>
+                        <span>Faculty Pantry</span>
+                        <span class="text-[10px] font-normal opacity-80">(Badges & Workshops)</span>
+                    </button>
+
+                    <button onclick="submitGameAnswer('produce')" class="cartoon-btn bg-rose-500 hover:bg-rose-400 text-slate-900 p-3 rounded-2xl border-2 border-slate-900 font-black text-xs md:text-sm flex flex-col items-center gap-1">
+                        <span class="text-2xl">🍎</span>
+                        <span>Fresh Produce</span>
+                        <span class="text-[10px] font-normal opacity-80">(Majors & Programs)</span>
+                    </button>
+
+                    <button onclick="submitGameAnswer('tools')" class="cartoon-btn bg-sky-500 hover:bg-sky-400 text-slate-900 p-3 rounded-2xl border-2 border-slate-900 font-black text-xs md:text-sm flex flex-col items-center gap-1">
+                        <span class="text-2xl">🛠️</span>
+                        <span>Campus Tools</span>
+                        <span class="text-[10px] font-normal opacity-80">(Copilot & Policies)</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= TAB 3: SUSTAINABLE AI RECIPE BUILDER ================= -->
+        <section id="tab-recipe" class="tab-content hidden space-y-6">
+            <div class="cartoon-card bg-sky-300 p-6 rounded-3xl text-slate-900 border-4 border-slate-900">
+                <div class="max-w-2xl">
+                    <span class="bg-slate-900 text-sky-300 font-black text-xs px-3 py-1 rounded-full uppercase">The AI Test Kitchen</span>
+                    <h2 class="font-cartoon text-3xl font-black mt-1">Cook Up a Sustainable AI Transformation Recipe</h2>
+                    <p class="font-semibold text-slate-800 text-sm mt-1">
+                        UNC Charlotte Core Philosophy: <i>"Sustainable AI Transformation requires coordinated investments in Leadership, Curriculum, Faculty Development, Governance, and Community — not simply shiny AI tools."</i>
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Available Ingredients (Collected Items) -->
+                <div class="cartoon-card bg-white p-5 rounded-3xl border-2 border-slate-900 lg:col-span-1 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-cartoon text-xl font-bold text-slate-900 mb-2 flex items-center gap-2">
+                            <span>🧺</span> Your Shopped Ingredients
+                        </h3>
+                        <p class="text-xs font-semibold text-slate-500 mb-4">Click an item from your cart to add to the cooking pot!</p>
+
+                        <div id="recipe-inventory-list" class="space-y-2 max-h-80 overflow-y-auto pr-1">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+
+                    <div class="mt-4 pt-3 border-t border-slate-200">
+                        <button onclick="switchTab('market')" class="text-xs text-emerald-700 font-extrabold hover:underline flex items-center gap-1">
+                            ➕ Need more ingredients? Shop the Market Aisles
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Cooking Pot Zone -->
+                <div class="cartoon-card bg-amber-50 p-6 rounded-3xl border-2 border-slate-900 lg:col-span-2 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-cartoon text-2xl font-black text-slate-900 flex items-center gap-2">
+                                🍲 The AI Strategy Cauldron
+                            </h3>
+                            <button onclick="clearRecipePot()" class="text-xs bg-rose-100 text-rose-700 hover:bg-rose-200 font-bold px-3 py-1 rounded-lg border border-rose-300">
+                                🗑️ Clear Pot
+                            </button>
+                        </div>
+
+                        <!-- Pot Slots -->
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+                            <div id="slot-0" class="border-2 border-dashed border-slate-400 bg-white/70 rounded-2xl p-3 min-h-[100px] flex flex-col items-center justify-center text-center">
+                                <span class="text-2xl opacity-40">1️⃣</span>
+                                <span class="text-xs text-slate-400 font-bold mt-1">Empty Ingredient</span>
+                            </div>
+                            <div id="slot-1" class="border-2 border-dashed border-slate-400 bg-white/70 rounded-2xl p-3 min-h-[100px] flex flex-col items-center justify-center text-center">
+                                <span class="text-2xl opacity-40">2️⃣</span>
+                                <span class="text-xs text-slate-400 font-bold mt-1">Empty Ingredient</span>
+                            </div>
+                            <div id="slot-2" class="border-2 border-dashed border-slate-400 bg-white/70 rounded-2xl p-3 min-h-[100px] flex flex-col items-center justify-center text-center">
+                                <span class="text-2xl opacity-40">3️⃣</span>
+                                <span class="text-xs text-slate-400 font-bold mt-1">Empty Ingredient</span>
+                            </div>
+                            <div id="slot-3" class="border-2 border-dashed border-slate-400 bg-white/70 rounded-2xl p-3 min-h-[100px] flex flex-col items-center justify-center text-center">
+                                <span class="text-2xl opacity-40">4️⃣</span>
+                                <span class="text-xs text-slate-400 font-bold mt-1">Empty Ingredient</span>
+                            </div>
+                        </div>
+
+                        <!-- Recipe Evaluation Outcome Box -->
+                        <div id="recipe-result-box" class="cartoon-card bg-white p-4 rounded-2xl border-2 border-slate-900 min-h-[120px] flex items-center justify-center text-center">
+                            <p class="text-sm font-bold text-slate-500">
+                                Add 4 ingredients to evaluate your campus AI Strategy Balance!
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 flex justify-end">
+                        <button onclick="cookRecipe()" class="cartoon-btn bg-emerald-700 hover:bg-emerald-600 text-white font-black px-6 py-3 rounded-2xl border-2 border-slate-900 text-base">
+                            🔥 Cook AI Strategy Recipe!
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= TAB 4: SUBMIT AAC&U IDEA BOARD ================= -->
+        <section id="tab-ideas" class="tab-content hidden space-y-6">
+            <div class="cartoon-card bg-rose-300 p-6 rounded-3xl text-slate-900 border-4 border-slate-900">
+                <div class="max-w-2xl">
+                    <span class="bg-slate-900 text-rose-300 font-black text-xs px-3 py-1 rounded-full uppercase">AAC&U Interactive Idea Wall</span>
+                    <h2 class="font-cartoon text-3xl font-black mt-1">Submit an Idea to Accelerate AI!</h2>
+                    <p class="font-semibold text-slate-800 text-sm mt-1">
+                        Post an idea or successful practice that helped accelerate AI literacy and transformation at your university!
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Submit Form -->
+                <div class="cartoon-card bg-white p-5 rounded-3xl border-2 border-slate-900 lg:col-span-1">
+                    <h3 class="font-cartoon text-xl font-bold text-slate-900 mb-3 flex items-center gap-2">
+                        <span>📝</span> Post Your Idea
+                    </h3>
+
+                    <form id="idea-form" onsubmit="handleIdeaSubmit(event)" class="space-y-3">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Your Name / Title</label>
+                            <input type="text" id="idea-author" required placeholder="e.g. Dr. Jane Doe" class="w-full text-sm p-2.5 rounded-xl border-2 border-slate-900 font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-600">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">University / Institution</label>
+                            <input type="text" id="idea-inst" required placeholder="e.g. UNC Charlotte" class="w-full text-sm p-2.5 rounded-xl border-2 border-slate-900 font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-600">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">AI Focus Category</label>
+                            <select id="idea-category" class="w-full text-sm p-2.5 rounded-xl border-2 border-slate-900 font-semibold bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600">
+                                <option value="Faculty Development">Faculty Development</option>
+                                <option value="Curriculum Pathways">Curriculum Pathways</option>
+                                <option value="Leadership & Policy">Leadership & Policy</option>
+                                <option value="Student Engagement">Student Engagement</option>
+                                <option value="Ethics & Integrity">Ethics & Integrity</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Your AI Accelerator Idea</label>
+                            <textarea id="idea-content" required rows="4" placeholder="Share a tool, policy, workshop, or engagement idea..." class="w-full text-sm p-2.5 rounded-xl border-2 border-slate-900 font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-600"></textarea>
+                        </div>
+
+                        <button type="submit" class="cartoon-btn w-full bg-rose-500 hover:bg-rose-600 text-white font-black py-2.5 rounded-xl border-2 border-slate-900 text-sm">
+                            📌 Post Idea to AAC&U Wall (+50 pts)
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Idea Wall Sticky Display -->
+                <div class="cartoon-card wood-shelf p-5 rounded-3xl border-4 border-amber-900 lg:col-span-2 min-h-[400px]">
+                    <h3 class="font-cartoon text-xl font-black text-amber-100 mb-4 flex items-center gap-2 drop-shadow">
+                        <span>📌</span> Community Idea Grocery Shelf
+                    </h3>
+
+                    <div id="ideas-board" class="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[500px] overflow-y-auto pr-2">
+                        <!-- Sticky Notes dynamically inserted here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= TAB 5: CHECKOUT & RECEIPT ================= -->
+        <section id="tab-checkout" class="tab-content hidden space-y-6">
+            <div class="max-w-2xl mx-auto space-y-6">
+                
+                <!-- Receipt Outer Container -->
+                <div class="receipt-zigzag pt-4">
+                    <div class="receipt-paper border-x-2 border-slate-300 p-6 md:p-8 rounded-lg shadow-xl text-slate-800 font-receipt">
+                        
+                        <!-- Receipt Header -->
+                        <div class="text-center border-b-2 border-dashed border-slate-400 pb-4 mb-4">
+                            <div class="text-4xl mb-1">🛒</div>
+                            <h2 class="text-2xl font-black tracking-widest uppercase text-slate-900">UNC CHARLOTTE AI MARKET</h2>
+                            <p class="text-xs text-slate-600">Center for Teaching & Learning (CTL)</p>
+                            <p class="text-xs text-slate-600">Beyond The Middle Aisles • AAC&U Expo</p>
+                            <div class="text-xs font-bold text-slate-500 mt-2" id="receipt-date">2026-10-26</div>
+                        </div>
+
+                        <!-- Shopped Items List -->
+                        <div class="mb-6">
+                            <div class="flex justify-between font-bold text-xs uppercase border-b border-slate-300 pb-1 mb-2">
+                                <span>ITEM / INITIATIVE</span>
+                                <span>DEPARTMENT</span>
+                            </div>
+
+                            <div id="receipt-item-list" class="space-y-1.5 text-xs font-semibold">
+                                <!-- Dynamic Items -->
+                            </div>
+                        </div>
+
+                        <!-- Receipt Totals -->
+                        <div class="border-t-2 border-dashed border-slate-400 pt-3 space-y-1 text-sm font-bold">
+                            <div class="flex justify-between">
+                                <span>TOTAL ITEMS COLLECTED:</span>
+                                <span id="receipt-total-items" class="text-base font-black">0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>NINER AI LITERACY PTS:</span>
+                                <span id="receipt-total-pts" class="text-base font-black text-emerald-700">0 PTS</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>RECIPE STATUS:</span>
+                                <span id="receipt-recipe-status" class="text-xs font-black text-amber-700">Not Cooked Yet</span>
+                            </div>
+                        </div>
+
+                        <!-- Authors & Credits Section -->
+                        <div class="mt-6 pt-4 border-t border-slate-300 text-center text-[11px] text-slate-600 space-y-1">
+                            <p class="font-bold text-slate-900 uppercase">UNC Charlotte Presentation Team:</p>
+                            <p>Kiran Budhrani • Justin Cary • Kaela Lindquist</p>
+                            <p>Harini Ramaprasad • Teresa Petty • Leslie Zenk • Jordan Register</p>
+                            <p class="text-[10px] text-slate-400 mt-2">THANK YOU FOR VISITING THE UNC CHARLOTTE AI MARKET!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex justify-center gap-3">
+                    <button onclick="window.print()" class="cartoon-btn bg-slate-900 text-white font-black px-6 py-2.5 rounded-2xl border-2 border-slate-900 text-sm flex items-center gap-2">
+                        🖨️ Print / Save Receipt
+                    </button>
+                    <button onclick="shareReceipt()" class="cartoon-btn bg-emerald-700 hover:bg-emerald-600 text-white font-black px-6 py-2.5 rounded-2xl border-2 border-slate-900 text-sm flex items-center gap-2">
+                        📋 Copy Summary
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- SHOPPING CART MODAL -->
+    <div id="cart-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="cartoon-card bg-white rounded-3xl max-w-lg w-full p-6 border-4 border-slate-900 space-y-4 max-h-[90vh] flex flex-col justify-between">
+            <div>
+                <div class="flex items-center justify-between pb-3 border-b-2 border-slate-200">
+                    <h3 class="font-cartoon text-2xl font-black text-slate-900 flex items-center gap-2">
+                        🛒 Your AI Shopping Cart
+                    </h3>
+                    <button onclick="closeCartModal()" class="text-xl font-black text-slate-400 hover:text-slate-800">✖</button>
+                </div>
+
+                <div id="cart-modal-items" class="mt-4 space-y-2 max-h-[50vh] overflow-y-auto pr-1">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+
+            <div class="pt-3 border-t-2 border-slate-200 flex items-center justify-between">
+                <div>
+                    <span class="text-xs font-bold text-slate-500">Total Items:</span>
+                    <span id="modal-cart-count" class="font-black text-slate-900 text-lg block">0</span>
+                </div>
+                <button onclick="closeCartModal(); switchTab('checkout');" class="cartoon-btn bg-emerald-700 text-white font-black px-5 py-2 rounded-xl text-sm border-2 border-slate-900">
+                    Proceed to Checkout 🧾
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRODUCT DETAIL NUTRITION FACTS MODAL -->
+    <div id="product-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="cartoon-card bg-white rounded-3xl max-w-md w-full p-6 border-4 border-slate-900 space-y-4 relative">
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 text-xl font-black text-slate-400 hover:text-slate-800">✖</button>
+
+            <div class="text-center pt-2">
+                <div id="modal-item-emoji" class="text-6xl mb-2">🍎</div>
+                <span id="modal-item-dept" class="bg-amber-100 text-amber-900 text-xs font-black px-3 py-1 rounded-full border border-amber-300">Department</span>
+                <h3 id="modal-item-title" class="font-cartoon text-2xl font-black text-slate-900 mt-2">Item Name</h3>
+            </div>
+
+            <p id="modal-item-desc" class="text-sm font-semibold text-slate-600 text-center">Item description goes here.</p>
+
+            <!-- Nutrition Facts Box Motif -->
+            <div class="border-2 border-slate-900 p-3 rounded-xl bg-amber-50 font-sans text-xs space-y-1">
+                <div class="font-cartoon text-base font-black border-b-2 border-slate-900 pb-0.5 uppercase tracking-wide">
+                    AI Literacy Nutrition Facts
+                </div>
+                <div class="flex justify-between border-b border-slate-300 py-1 font-bold">
+                    <span>Impact Score:</span>
+                    <span id="modal-impact" class="text-emerald-700 font-black">HIGH</span>
+                </div>
+                <div class="flex justify-between border-b border-slate-300 py-1 font-bold">
+                    <span>Target Audience:</span>
+                    <span id="modal-audience" class="text-slate-800">Faculty & Students</span>
+                </div>
+                <div class="flex justify-between py-1 font-bold">
+                    <span>UNC Charlotte Initiative:</span>
+                    <span class="text-amber-800">Active Campus Program</span>
+                </div>
+            </div>
+
+            <div class="flex gap-2 pt-2">
+                <button id="modal-cart-btn" onclick="" class="cartoon-btn w-full bg-emerald-700 text-white font-black py-2.5 rounded-xl border-2 border-slate-900 text-sm">
+                    🛒 Add Item to Cart (+20 Pts)
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 border-t-4 border-slate-900 py-6 px-4 text-center text-xs font-semibold mt-12">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <span class="text-2xl">🏬</span>
+                <span class="text-white font-cartoon text-base font-bold">UNC Charlotte AI Market</span>
+                <span>— AAC&U Interactive Presentation Game</span>
+            </div>
+            <div>
+                <span>Accelerating AI Literacy, Curriculum Pathways, & Campus Engagement</span>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- JAVASCRIPT ENGINE & DATA -->
+    <script>
+        // ZERO-DEPENDENCY NATIVE AUDIO SYNTHESIZER
+        let soundEnabled = true;
+        let audioCtx = null;
+
+        function safePlaySound(type) {
+            if (!soundEnabled) return;
+            try {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                
+                const now = audioCtx.currentTime;
+                if (type === 'pop') {
+                    osc.frequency.setValueAtTime(400, now);
+                    osc.frequency.exponentialRampToValueAtTime(800, now + 0.08);
+                    gain.gain.setValueAtTime(0.15, now);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.08);
+                    osc.start(now);
+                    osc.stop(now + 0.08);
+                } else if (type === 'add') {
+                    osc.frequency.setValueAtTime(523.25, now);
+                    osc.frequency.setValueAtTime(659.25, now + 0.08);
+                    gain.gain.setValueAtTime(0.2, now);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.16);
+                    osc.start(now);
+                    osc.stop(now + 0.16);
+                } else if (type === 'win') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(523.25, now);
+                    osc.frequency.setValueAtTime(659.25, now + 0.1);
+                    osc.frequency.setValueAtTime(783.99, now + 0.2);
+                    gain.gain.setValueAtTime(0.2, now);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.35);
+                    osc.start(now);
+                    osc.stop(now + 0.35);
+                } else if (type === 'error') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(180, now);
+                    osc.frequency.setValueAtTime(130, now + 0.1);
+                    gain.gain.setValueAtTime(0.2, now);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.2);
+                    osc.start(now);
+                    osc.stop(now + 0.2);
+                }
+            } catch (e) {
+                console.warn('Audio play failed', e);
+            }
+        }
+
+        // ZERO-DEPENDENCY CANVAS CONFETTI EFFECT
+        function safeConfetti(options = {}) {
+            try {
+                const count = options.particleCount || 40;
+                const canvas = document.createElement('canvas');
+                canvas.style.position = 'fixed';
+                canvas.style.top = '0';
+                canvas.style.left = '0';
+                canvas.style.width = '100vw';
+                canvas.style.height = '100vh';
+                canvas.style.pointerEvents = 'none';
+                canvas.style.zIndex = '9999';
+                document.body.appendChild(canvas);
+                
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                const ctx = canvas.getContext('2d');
+                
+                const particles = [];
+                const colors = ['#00703C', '#A4915C', '#FF9F43', '#EE5253', '#54a0ff', '#FF9FF3', '#fcd34d'];
+                
+                const startX = canvas.width * (options.origin?.x || 0.5);
+                const startY = canvas.height * (options.origin?.y || 0.5);
+                
+                for (let i = 0; i < count; i++) {
+                    particles.push({
+                        x: startX,
+                        y: startY,
+                        vx: (Math.random() - 0.5) * 12,
+                        vy: (Math.random() - 0.8) * 12,
+                        size: Math.random() * 8 + 4,
+                        color: colors[Math.floor(Math.random() * colors.length)],
+                        rotation: Math.random() * 360,
+                        rSpeed: (Math.random() - 0.5) * 10,
+                        opacity: 1
+                    });
+                }
+                
+                let frame = 0;
+                function animate() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    let alive = false;
+                    particles.forEach(p => {
+                        p.x += p.vx;
+                        p.y += p.vy;
+                        p.vy += 0.25;
+                        p.rotation += p.rSpeed;
+                        p.opacity -= 0.015;
+                        
+                        if (p.opacity > 0) {
+                            alive = true;
+                            ctx.save();
+                            ctx.translate(p.x, p.y);
+                            ctx.rotate((p.rotation * Math.PI) / 180);
+                            ctx.globalAlpha = Math.max(0, p.opacity);
+                            ctx.fillStyle = p.color;
+                            ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+                            ctx.restore();
+                        }
+                    });
+                    
+                    if (alive && frame < 120) {
+                        frame++;
+                        requestAnimationFrame(animate);
+                    } else {
+                        canvas.remove();
+                    }
+                }
+                animate();
+            } catch(e) {
+                console.warn('Confetti failed', e);
+            }
+        }
+
+        function toggleAudio() {
+            soundEnabled = !soundEnabled;
+            const btn = document.getElementById('sound-btn');
+            if (btn) btn.innerText = soundEnabled ? '🔊' : '🔇';
+        }
+
+
+        // STORE DATA ACCORDING TO UNC CHARLOTTE AAC&U PRESENTATION POSTER
+        const storeData = [
+            {
+                id: 'specials-1',
+                dept: 'specials',
+                deptName: "Manager's Specials",
+                title: 'AI Task Force',
+                emoji: '🧭',
+                badge: 'Leadership',
+                desc: 'Cross-functional university task force established to guide institutional strategy, policy, and AI readiness.',
+                impact: '98%',
+                audience: 'Campus Leadership'
+            },
+            {
+                id: 'specials-2',
+                dept: 'specials',
+                deptName: "Manager's Specials",
+                title: 'AI Steering Committee',
+                emoji: '🏛️',
+                badge: 'Governance',
+                desc: 'Governance oversight body driving long-term strategic investments in AI across academic units.',
+                impact: '95%',
+                audience: 'Deans & Chairs'
+            },
+            {
+                id: 'specials-3',
+                dept: 'specials',
+                deptName: "Manager's Specials",
+                title: 'AI Philosophy Statement',
+                emoji: '📜',
+                badge: 'Vision',
+                desc: 'UNC Charlotte’s core belief: Sustainable AI transformation requires investments in leadership, faculty, and ethics—not just tools.',
+                impact: '100%',
+                audience: 'Entire Campus'
+            },
+            {
+                id: 'specials-4',
+                dept: 'specials',
+                deptName: "Manager's Specials",
+                title: 'AI Accelerator Fund',
+                emoji: '⚡',
+                badge: 'Funding',
+                desc: 'Targeted institutional investments to incubate innovative teaching, research, and campus workflows.',
+                impact: '92%',
+                audience: 'Faculty Innovators'
+            },
+            {
+                id: 'pantry-1',
+                dept: 'pantry',
+                deptName: "Faculty Learning Pantry",
+                title: 'Teaching with AI Badge',
+                emoji: '🏅',
+                badge: 'Faculty Badge',
+                desc: 'Formal recognition program for faculty demonstrating competency in AI pedagogy, course design, and assessment.',
+                impact: '96%',
+                audience: 'Faculty & Instructors'
+            },
+            {
+                id: 'pantry-2',
+                dept: 'pantry',
+                deptName: "Faculty Learning Pantry",
+                title: 'AI Literacy Academy for GenEd',
+                emoji: '🏫',
+                badge: 'Curriculum',
+                desc: 'Specialized academy training General Education instructors to integrate AI critical thinking into foundational courses.',
+                impact: '94%',
+                audience: 'GenEd Faculty'
+            },
+            {
+                id: 'pantry-3',
+                dept: 'pantry',
+                deptName: "Faculty Learning Pantry",
+                title: 'Student AI Literacy Modules',
+                emoji: '📚',
+                badge: 'Student Module',
+                desc: 'Interactive learning modules designed to build essential AI skills, ethical awareness, and tool fluency for students.',
+                impact: '90%',
+                audience: 'All Students'
+            },
+            {
+                id: 'pantry-4',
+                dept: 'pantry',
+                deptName: "Faculty Learning Pantry",
+                title: 'Course Development Support',
+                emoji: '🛠️',
+                badge: 'Instructional Design',
+                desc: 'Dedicated 1-on-1 ID consultation to redesign assignments, assessments, and learning outcomes in the AI era.',
+                impact: '93%',
+                audience: 'Faculty Developers'
+            },
+            {
+                id: 'produce-1',
+                dept: 'produce',
+                deptName: "Student Fresh Produce",
+                title: 'New AI Majors & Minors',
+                emoji: '🎓',
+                badge: 'Degree Programs',
+                desc: 'Cutting-edge degree programs equipping students with workforce-ready AI knowledge across CS and interdisciplinary fields.',
+                impact: '99%',
+                audience: 'Undergrad & Grad'
+            },
+            {
+                id: 'produce-2',
+                dept: 'produce',
+                deptName: "Student Fresh Produce",
+                title: 'AI Across Humanities & Social Sciences',
+                emoji: '🎨',
+                badge: 'Interdisciplinary',
+                desc: 'Embedding AI literacy into Liberal Arts, Business, Marketing, Finance, and Social Sciences.',
+                impact: '91%',
+                audience: 'Non-CS Majors'
+            },
+            {
+                id: 'produce-3',
+                dept: 'produce',
+                deptName: "Student Fresh Produce",
+                title: 'AI Certificates & Micro-Credentials',
+                emoji: '📜',
+                badge: 'Credentials',
+                desc: 'Stackable micro-credentials certifying specialized skill sets in applied generative AI and data literacy.',
+                impact: '88%',
+                audience: 'Students & Professionals'
+            },
+            {
+                id: 'tools-1',
+                dept: 'tools',
+                deptName: "Campus Tools Essentials",
+                title: 'Copilot Enterprise Access',
+                emoji: '🤖',
+                badge: 'Campus Tool',
+                desc: 'Secure, privacy-protected AI assistant access provided for UNC Charlotte faculty, staff, and campus community.',
+                impact: '95%',
+                audience: 'Campus-wide'
+            },
+            {
+                id: 'tools-2',
+                dept: 'tools',
+                deptName: "Campus Tools Essentials",
+                title: 'AI Syllabus Policy Guidelines',
+                emoji: '📝',
+                badge: 'Academic Policy',
+                desc: 'Clear boilerplate options and guidance for faculty to set explicit classroom AI usage expectations.',
+                impact: '97%',
+                audience: 'Instructors & Students'
+            },
+            {
+                id: 'tools-3',
+                dept: 'tools',
+                deptName: "Campus Tools Essentials",
+                title: 'Code of Academic Integrity',
+                emoji: '⚖️',
+                badge: 'Ethics',
+                desc: 'Updated student accountability standards and conflict resolution protocols around ethical AI usage.',
+                impact: '96%',
+                audience: 'Student Conduct'
+            },
+            {
+                id: 'kitchen-1',
+                dept: 'kitchen',
+                deptName: "The Test Kitchen",
+                title: 'AI Research Grants',
+                emoji: '🧪',
+                badge: 'Research',
+                desc: 'Seed grant funding for faculty conducting cutting-edge research in generative AI applications and pedagogy.',
+                impact: '90%',
+                audience: 'Research Faculty'
+            },
+            {
+                id: 'kitchen-2',
+                dept: 'kitchen',
+                deptName: "The Test Kitchen",
+                title: 'Classroom Experimentation Labs',
+                emoji: '🔬',
+                badge: 'Innovation',
+                desc: 'Safe pilot environments for testing emerging AI tools before campus-wide procurement.',
+                impact: '89%',
+                audience: 'Early Adopters'
+            },
+            {
+                id: 'lounge-1',
+                dept: 'lounge',
+                deptName: "Community Lounge",
+                title: 'Faculty Communities of Practice',
+                emoji: '☕',
+                badge: 'Peer Network',
+                desc: 'Regular faculty-led meetups to share assignment ideas, prompt engineering tricks, and discipline-specific lessons.',
+                impact: '94%',
+                audience: 'Faculty Community'
+            },
+            {
+                id: 'lounge-2',
+                dept: 'lounge',
+                deptName: "Community Lounge",
+                title: 'Student AI Ambassadors',
+                emoji: '🗣️',
+                badge: 'Student Voice',
+                desc: 'Student leaders promoting ethical AI habits, leading peer workshops, and providing feedback to leadership.',
+                impact: '92%',
+                audience: 'Student Leaders'
+            },
+            {
+                id: 'ctl-1',
+                dept: 'ctl',
+                deptName: "Customer Service CTL",
+                title: '1-on-1 ID Consultations',
+                emoji: '💁',
+                badge: 'CTL Service',
+                desc: 'Personalized support for course design, syllabus guidelines, and data security standards in AI.',
+                impact: '98%',
+                audience: 'Faculty'
+            },
+            {
+                id: 'challenges-1',
+                dept: 'challenges',
+                deptName: "Accelerators & Challenges",
+                title: 'Tool Procurement & Readiness',
+                emoji: '⚙️',
+                badge: 'Challenge',
+                desc: 'Navigating software licensing, IT data security compliance, and campus-wide technical readiness.',
+                impact: 'Needs Work',
+                audience: 'IT & Leadership'
+            },
+            {
+                id: 'challenges-2',
+                dept: 'challenges',
+                deptName: "Accelerators & Challenges",
+                title: 'Environmental & Ethics Concerns',
+                emoji: '🌱',
+                badge: 'Challenge',
+                desc: 'Addressing energy consumption of LLMs, bias in algorithmic outputs, and long-term sustainability.',
+                impact: 'Critical Focus',
+                audience: 'Entire Community'
+            }
+        ];
+
+        // AAC&U Community Ideas
+        let communityIdeas = [
+            {
+                id: 1,
+                author: 'Dr. Justin Cary',
+                inst: 'UNC Charlotte',
+                category: 'Faculty Development',
+                content: 'Creating short, 5-minute video snackable prompts for instructors looking to update assessments.',
+                likes: 24
+            },
+            {
+                id: 2,
+                author: 'Kiran Budhrani',
+                inst: 'UNC Charlotte',
+                category: 'Curriculum Pathways',
+                content: 'Embedding AI Literacy badges directly into required General Education pathway courses.',
+                likes: 31
+            },
+            {
+                id: 3,
+                author: 'AAC&U Attendee',
+                inst: 'Partner University',
+                category: 'Student Engagement',
+                content: 'Hosting student-led AI hackathons where students redesign assignments with ethical safeguards.',
+                likes: 18
+            }
+        ];
+
+        // GLOBAL APP STATE
+        let cart = [];
+        let points = 0;
+        let currentModalItemId = null;
+
+
+        // RENDER MARKET AISLES
+        function renderMarket() {
+            const container = document.getElementById('aisles-container');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const departments = [
+                { id: 'specials', name: "⭐ Manager's Specials (Leadership & Governance)", color: 'bg-amber-400' },
+                { id: 'pantry', name: '🥫 Faculty Learning Pantry (Professional Dev & Badges)', color: 'bg-emerald-400' },
+                { id: 'produce', name: '🍎 Student Fresh Produce (Majors, Minors & Courses)', color: 'bg-rose-400' },
+                { id: 'tools', name: '🛠️ Campus Tools Essentials (Copilot & Policies)', color: 'bg-sky-400' },
+                { id: 'kitchen', name: '🧪 The Test Kitchen (Grants & Experimentation)', color: 'bg-purple-400' },
+                { id: 'lounge', name: '☕ Community Lounge (CoPs & Ambassadors)', color: 'bg-orange-400' },
+                { id: 'ctl', name: '💁 Customer Service Desk (Center for Teaching & Learning)', color: 'bg-teal-400' },
+                { id: 'challenges', name: '⚠️ Accelerators & Challenges (Ethics & Readiness)', color: 'bg-slate-300' }
+            ];
+
+            departments.forEach(dept => {
+                const items = storeData.filter(i => i.dept === dept.id);
+                if (items.length === 0) return;
+
+                const aisleEl = document.createElement('div');
+                aisleEl.className = `aisle-section aisle-${dept.id} space-y-3`;
+
+                aisleEl.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <div class="cartoon-card ${dept.color} text-slate-900 font-cartoon text-lg font-black px-4 py-1.5 rounded-2xl border-2 border-slate-900 inline-block">
+                            ${dept.name}
+                        </div>
+                        <div class="h-1 flex-grow bg-slate-300 rounded-full"></div>
+                    </div>
+
+                    <div class="grocery-shelf p-4 rounded-3xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        ${items.map(item => {
+                            const isCollected = cart.some(c => c.id === item.id);
+                            return `
+                                <div onclick="openProductModal('${item.id}')" class="cartoon-card bg-white p-4 rounded-2xl border-2 border-slate-900 flex flex-col justify-between cursor-pointer relative group">
+                                    ${isCollected ? `<span class="absolute top-2 right-2 bg-emerald-700 text-white text-[10px] font-black px-2 py-0.5 rounded-full border border-slate-900">IN CART ✓</span>` : ''}
+                                    
+                                    <div>
+                                        <div class="text-4xl text-center my-2 group-hover:scale-110 transition-transform">
+                                            ${item.emoji}
+                                        </div>
+                                        <span class="bg-amber-100 text-amber-900 text-[10px] font-black px-2 py-0.5 rounded-md border border-amber-300 inline-block mb-1">
+                                            ${item.badge}
+                                        </span>
+                                        <h4 class="font-cartoon font-bold text-base text-slate-900 leading-snug">
+                                            ${item.title}
+                                        </h4>
+                                        <p class="text-xs font-semibold text-slate-500 line-clamp-2 mt-1">
+                                            ${item.desc}
+                                        </p>
+                                    </div>
+
+                                    <div class="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between">
+                                        <span class="text-[11px] font-extrabold text-emerald-700"> inspect item 🔍</span>
+                                        <button onclick="event.stopPropagation(); toggleCartItem('${item.id}')" class="cartoon-btn ${isCollected ? 'bg-rose-500 text-white' : 'bg-emerald-700 text-white'} text-xs font-black px-2.5 py-1 rounded-lg">
+                                            ${isCollected ? 'Remove' : '+ Shop'}
+                                        </button>
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+
+                container.appendChild(aisleEl);
+            });
+        }
+
+
+        // FILTER AISLES
+        function filterAisles(category) {
+            safePlaySound('pop');
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-emerald-700', 'text-white');
+                btn.classList.add('bg-amber-100', 'text-slate-800');
+            });
+
+            if (category === 'all') {
+                document.querySelectorAll('.aisle-section').forEach(el => el.classList.remove('hidden'));
+            } else {
+                document.querySelectorAll('.aisle-section').forEach(el => {
+                    if (el.classList.contains(`aisle-${category}`)) {
+                        el.classList.remove('hidden');
+                    } else {
+                        el.classList.add('hidden');
+                    }
+                });
+            }
+        }
+
+
+        // CART ACTIONS
+        function toggleCartItem(id) {
+            const item = storeData.find(i => i.id === id);
+            if (!item) return;
+
+            const index = cart.findIndex(c => c.id === id);
+            if (index > -1) {
+                cart.splice(index, 1);
+                points = Math.max(0, points - 20);
+                safePlaySound('pop');
+            } else {
+                cart.push(item);
+                points += 20;
+                safePlaySound('add');
+                safeConfetti({ particleCount: 25, origin: { y: 0.8 } });
+            }
+
+            updateUI();
+            renderMarket();
+            renderRecipeInventory();
+        }
+
+        function updateUI() {
+            const headerCart = document.getElementById('header-cart-count');
+            const headerPts = document.getElementById('header-points');
+            const modalCartCount = document.getElementById('modal-cart-count');
+
+            if (headerCart) headerCart.innerText = cart.length;
+            if (headerPts) headerPts.innerText = points;
+            if (modalCartCount) modalCartCount.innerText = cart.length;
+
+            if (currentModalItemId) {
+                const isCollected = cart.some(c => c.id === currentModalItemId);
+                const btn = document.getElementById('modal-cart-btn');
+                if (btn) {
+                    btn.innerText = isCollected ? '❌ Remove from Cart' : '🛒 Add Item to Cart (+20 Pts)';
+                    btn.className = isCollected 
+                        ? 'cartoon-btn w-full bg-rose-500 hover:bg-rose-600 text-white font-black py-2.5 rounded-xl border-2 border-slate-900 text-sm'
+                        : 'cartoon-btn w-full bg-emerald-700 hover:bg-emerald-600 text-white font-black py-2.5 rounded-xl border-2 border-slate-900 text-sm';
+                }
+            }
+
+            renderReceipt();
+        }
+
+
+        // PRODUCT MODAL
+        function openProductModal(id) {
+            safePlaySound('pop');
+            currentModalItemId = id;
+            const item = storeData.find(i => i.id === id);
+            if (!item) return;
+
+            document.getElementById('modal-item-emoji').innerText = item.emoji;
+            document.getElementById('modal-item-dept').innerText = item.deptName;
+            document.getElementById('modal-item-title').innerText = item.title;
+            document.getElementById('modal-item-desc').innerText = item.desc;
+            document.getElementById('modal-impact').innerText = item.impact;
+            document.getElementById('modal-audience').innerText = item.audience;
+
+            const btn = document.getElementById('modal-cart-btn');
+            if (btn) btn.onclick = () => toggleCartItem(id);
+
+            updateUI();
+            document.getElementById('product-modal').classList.remove('hidden');
+        }
+
+        function closeProductModal() {
+            document.getElementById('product-modal').classList.add('hidden');
+            currentModalItemId = null;
+        }
+
+
+        // CART MODAL
+        function openCartModal() {
+            safePlaySound('pop');
+            const container = document.getElementById('cart-modal-items');
+            if (!container) return;
+            container.innerHTML = '';
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-8 text-slate-400 font-bold">
+                        <div class="text-4xl mb-2">🧺</div>
+                        Your cart is empty! Explore the market aisles to shop for AI ideas.
+                    </div>
+                `;
+            } else {
+                cart.forEach(item => {
+                    const row = document.createElement('div');
+                    row.className = 'flex items-center justify-between p-3 bg-slate-50 rounded-2xl border border-slate-200';
+                    row.innerHTML = `
+                        <div class="flex items-center gap-3">
+                            <span class="text-2xl">${item.emoji}</span>
+                            <div>
+                                <h4 class="font-bold text-sm text-slate-900 leading-tight">${item.title}</h4>
+                                <span class="text-[10px] text-amber-800 font-bold">${item.deptName}</span>
+                            </div>
+                        </div>
+                        <button onclick="toggleCartItem('${item.id}'); openCartModal();" class="text-xs bg-rose-100 text-rose-700 hover:bg-rose-200 font-bold px-2.5 py-1 rounded-lg">
+                            Remove
+                        </button>
+                    `;
+                    container.appendChild(row);
+                });
+            }
+
+            document.getElementById('cart-modal').classList.remove('hidden');
+        }
+
+        function closeCartModal() {
+            document.getElementById('cart-modal').classList.add('hidden');
+        }
+
+
+        // TAB NAVIGATION
+        function switchTab(tabId) {
+            safePlaySound('pop');
+
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            const target = document.getElementById(`tab-${tabId}`);
+            if (target) target.classList.remove('hidden');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-emerald-700', 'text-white');
+                btn.classList.add('bg-white', 'text-slate-800');
+            });
+
+            const activeNav = document.getElementById(`nav-${tabId}`);
+            if (activeNav) {
+                activeNav.classList.remove('bg-white');
+                activeNav.classList.add('bg-emerald-700', 'text-white');
+            }
+
+            if (tabId === 'recipe') renderRecipeInventory();
+            if (tabId === 'ideas') renderIdeas();
+            if (tabId === 'checkout') renderReceipt();
+        }
+
+
+        // ARCADE MINI-GAME LOGIC
+        let gameTimer = null;
+        let gameTimeLeft = 30;
+        let gameScore = 0;
+        let currentItem = null;
+
+        function startGame() {
+            safePlaySound('win');
+            gameTimeLeft = 30;
+            gameScore = 0;
+            document.getElementById('game-score').innerText = gameScore;
+            document.getElementById('game-timer').innerText = gameTimeLeft + 's';
+            document.getElementById('game-start-overlay').classList.add('hidden');
+
+            nextGameItem();
+
+            clearInterval(gameTimer);
+            gameTimer = setInterval(() => {
+                gameTimeLeft--;
+                document.getElementById('game-timer').innerText = gameTimeLeft + 's';
+
+                if (gameTimeLeft <= 0) {
+                    endGame();
+                }
+            }, 1000);
+        }
+
+        function nextGameItem() {
+            const validItems = storeData.filter(i => ['specials', 'pantry', 'produce', 'tools'].includes(i.dept));
+            currentItem = validItems[Math.floor(Math.random() * validItems.length)];
+
+            document.getElementById('game-item-emoji').innerText = currentItem.emoji;
+            document.getElementById('game-item-title').innerText = currentItem.title;
+            document.getElementById('game-item-desc').innerText = currentItem.desc;
+        }
+
+        function submitGameAnswer(deptTarget) {
+            if (!currentItem || gameTimeLeft <= 0) return;
+
+            if (currentItem.dept === deptTarget) {
+                safePlaySound('add');
+                gameScore += 50;
+                points += 15;
+                document.getElementById('game-score').innerText = gameScore;
+                safeConfetti({ particleCount: 15, origin: { y: 0.6 } });
+            } else {
+                safePlaySound('error');
+            }
+
+            updateUI();
+            nextGameItem();
+        }
+
+        function endGame() {
+            clearInterval(gameTimer);
+            safePlaySound('win');
+            const overlay = document.getElementById('game-start-overlay');
+            overlay.classList.remove('hidden');
+            overlay.innerHTML = `
+                <div class="text-6xl mb-2">🎉</div>
+                <h3 class="font-cartoon text-3xl font-black text-amber-400 mb-1">Time's Up!</h3>
+                <p class="text-white font-bold text-lg mb-2">You Scored <span class="text-emerald-400">${gameScore} Points</span>!</p>
+                <p class="text-slate-300 text-xs mb-6 max-w-sm">Great job sorting UNC Charlotte AI initiatives! You earned Niner Points for your receipt.</p>
+                <button onclick="startGame()" class="cartoon-btn bg-emerald-700 text-white font-black px-6 py-2.5 rounded-xl border-2 border-slate-900">
+                    Play Again 🔄
+                </button>
+            `;
+        }
+
+
+        // RECIPE BUILDER LOGIC
+        let recipePot = [];
+        let recipeCookedStatus = false;
+
+        function renderRecipeInventory() {
+            const container = document.getElementById('recipe-inventory-list');
+            if (!container) return;
+            container.innerHTML = '';
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-xs text-slate-400 text-center py-4 font-bold">
+                        Cart is empty! Shop the market floor to collect recipe ingredients.
+                    </div>
+                `;
+                return;
+            }
+
+            cart.forEach(item => {
+                const inPot = recipePot.some(p => p.id === item.id);
+                const card = document.createElement('div');
+                card.className = `p-2.5 rounded-xl border-2 border-slate-900 flex items-center justify-between cursor-pointer text-xs font-bold ${inPot ? 'bg-amber-100 opacity-60' : 'bg-slate-50 hover:bg-slate-100'}`;
+                card.onclick = () => addToRecipePot(item);
+
+                card.innerHTML = `
+                    <div class="flex items-center gap-2">
+                        <span class="text-xl">${item.emoji}</span>
+                        <div>
+                            <div class="text-slate-900">${item.title}</div>
+                            <span class="text-[9px] text-amber-800 font-extrabold">${item.badge}</span>
+                        </div>
+                    </div>
+                    <span class="text-emerald-700">${inPot ? 'In Pot ✓' : '+ Add'}</span>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function addToRecipePot(item) {
+            if (recipePot.length >= 4) {
+                safePlaySound('error');
+                return;
+            }
+            if (recipePot.some(p => p.id === item.id)) return;
+
+            safePlaySound('add');
+            recipePot.push(item);
+            updatePotSlots();
+            renderRecipeInventory();
+        }
+
+        function clearRecipePot() {
+            safePlaySound('pop');
+            recipePot = [];
+            updatePotSlots();
+            renderRecipeInventory();
+            document.getElementById('recipe-result-box').innerHTML = `
+                <p class="text-sm font-bold text-slate-500">
+                    Add 4 ingredients to evaluate your campus AI Strategy Balance!
+                </p>
+            `;
+        }
+
+        function updatePotSlots() {
+            for (let i = 0; i < 4; i++) {
+                const slot = document.getElementById(`slot-${i}`);
+                if (!slot) continue;
+
+                if (recipePot[i]) {
+                    const item = recipePot[i];
+                    slot.className = 'cartoon-card bg-amber-100 border-2 border-slate-900 rounded-2xl p-2 flex flex-col items-center justify-center text-center cursor-pointer';
+                    slot.onclick = () => {
+                        recipePot.splice(i, 1);
+                        updatePotSlots();
+                        renderRecipeInventory();
+                    };
+                    slot.innerHTML = `
+                        <span class="text-3xl">${item.emoji}</span>
+                        <span class="text-[11px] font-black text-slate-900 leading-tight mt-1">${item.title}</span>
+                    `;
+                } else {
+                    slot.className = 'border-2 border-dashed border-slate-400 bg-white/70 rounded-2xl p-3 min-h-[100px] flex flex-col items-center justify-center text-center';
+                    slot.onclick = null;
+                    slot.innerHTML = `
+                        <span class="text-2xl opacity-40">${i + 1}️⃣</span>
+                        <span class="text-xs text-slate-400 font-bold mt-1">Empty Ingredient</span>
+                    `;
+                }
+            }
+        }
+
+        function cookRecipe() {
+            if (recipePot.length < 4) {
+                safePlaySound('error');
+                document.getElementById('recipe-result-box').innerHTML = `
+                    <p class="text-xs font-bold text-rose-600">
+                        ⚠️ Please add 4 ingredients to the pot before cooking your recipe!
+                    </p>
+                `;
+                return;
+            }
+
+            safePlaySound('win');
+            safeConfetti({ particleCount: 50, origin: { y: 0.6 } });
+            recipeCookedStatus = true;
+
+            const depts = recipePot.map(i => i.dept);
+            const hasSpecials = depts.includes('specials');
+            const hasPantry = depts.includes('pantry');
+            const hasProduce = depts.includes('produce');
+            const hasTools = depts.includes('tools');
+
+            let outcomeTitle = "Custom AI Stew";
+            let outcomeDesc = "An interesting mix! To achieve a fully sustainable AI transformation, ensure you balance shiny tools with leadership governance, faculty development, and academic integrity.";
+            let grade = "B+";
+
+            if (hasSpecials && hasPantry && (hasProduce || hasTools)) {
+                outcomeTitle = "🌟 UNC Charlotte Balanced AI Blueprint";
+                outcomeDesc = "PERFECT RECIPE! You combined Leadership Governance, Faculty Development, and Academic Integration. This reflects UNC Charlotte's philosophy for sustainable, multi-tier transformation!";
+                grade = "A+ PERFECT BALANCE";
+                points += 100;
+                updateUI();
+            }
+
+            document.getElementById('recipe-result-box').innerHTML = `
+                <div class="space-y-1 text-center">
+                    <span class="bg-emerald-700 text-white text-[10px] font-black px-2.5 py-0.5 rounded-full border border-slate-900">
+                        GRADE: ${grade}
+                    </span>
+                    <h4 class="font-cartoon font-black text-lg text-slate-900">${outcomeTitle}</h4>
+                    <p class="text-xs font-semibold text-slate-700 max-w-md mx-auto">${outcomeDesc}</p>
+                </div>
+            `;
+        }
+
+
+        // COMMUNITY IDEA BOARD LOGIC
+        function renderIdeas() {
+            const board = document.getElementById('ideas-board');
+            if (!board) return;
+            board.innerHTML = '';
+
+            communityIdeas.forEach(idea => {
+                const sticky = document.createElement('div');
+                sticky.className = 'cartoon-card bg-amber-200 p-4 rounded-2xl border-2 border-slate-900 text-slate-900 flex flex-col justify-between space-y-3 rotate-[-1deg] hover:rotate-0';
+                sticky.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="bg-slate-900 text-amber-300 text-[10px] font-black px-2 py-0.5 rounded-md">${idea.category}</span>
+                            <span class="text-[10px] font-bold text-slate-600">${idea.inst}</span>
+                        </div>
+                        <p class="text-xs font-bold text-slate-800 italic mt-2">"${idea.content}"</p>
+                    </div>
+
+                    <div class="pt-2 border-t border-amber-300 flex items-center justify-between text-xs font-bold">
+                        <span class="text-slate-700 font-extrabold">— ${idea.author}</span>
+                        <button onclick="likeIdea(${idea.id})" class="bg-white hover:bg-amber-100 text-slate-900 px-2.5 py-1 rounded-lg border border-slate-900 flex items-center gap-1 text-[11px]">
+                            ❤️ <span>${idea.likes}</span>
+                        </button>
+                    </div>
+                `;
+                board.appendChild(sticky);
+            });
+        }
+
+        function handleIdeaSubmit(e) {
+            e.preventDefault();
+            safePlaySound('win');
+
+            const author = document.getElementById('idea-author').value;
+            const inst = document.getElementById('idea-inst').value;
+            const category = document.getElementById('idea-category').value;
+            const content = document.getElementById('idea-content').value;
+
+            communityIdeas.unshift({
+                id: Date.now(),
+                author,
+                inst,
+                category,
+                content,
+                likes: 1
+            });
+
+            points += 50;
+            updateUI();
+            renderIdeas();
+
+            document.getElementById('idea-form').reset();
+            safeConfetti({ particleCount: 30, origin: { y: 0.7 } });
+        }
+
+        function likeIdea(id) {
+            safePlaySound('pop');
+            const idea = communityIdeas.find(i => i.id === id);
+            if (idea) {
+                idea.likes++;
+                renderIdeas();
+            }
+        }
+
+
+        // RECEIPT GENERATION
+        function renderReceipt() {
+            const dateEl = document.getElementById('receipt-date');
+            if (dateEl) {
+                dateEl.innerText = new Date().toLocaleDateString('en-US', {
+                    year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+                });
+            }
+
+            const container = document.getElementById('receipt-item-list');
+            if (!container) return;
+            container.innerHTML = '';
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-slate-400 italic text-center py-2">
+                        [ No items in shopping cart ]
+                    </div>
+                `;
+            } else {
+                cart.forEach(item => {
+                    const row = document.createElement('div');
+                    row.className = 'flex justify-between border-b border-slate-200 py-1';
+                    row.innerHTML = `
+                        <span>${item.emoji} ${item.title}</span>
+                        <span class="text-slate-500">${item.badge}</span>
+                    `;
+                    container.appendChild(row);
+                });
+            }
+
+            document.getElementById('receipt-total-items').innerText = cart.length;
+            document.getElementById('receipt-total-pts').innerText = points + ' PTS';
+            document.getElementById('receipt-recipe-status').innerText = recipeCookedStatus ? 'A+ Sustainable Recipe Cooked' : 'Not Cooked Yet';
+        }
+
+        function shareReceipt() {
+            safePlaySound('pop');
+            const summary = `UNC Charlotte AI Market Receipt - AAC&U Expo\nTotal Shopped AI Initiatives: ${cart.length}\nNiner AI Points Earned: ${points} Pts\nExplore UNC Charlotte AI Framework!`;
+            
+            const tempInput = document.createElement("textarea");
+            tempInput.value = summary;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-6 right-6 bg-slate-900 text-white font-bold text-xs px-4 py-3 rounded-2xl border-2 border-amber-400 z-50 shadow-2xl animate-bounce';
+            toast.innerText = '📋 Receipt summary copied to clipboard!';
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+
+        // APP INITIALIZATION
+        function initApp() {
+            renderMarket();
+            updateUI();
+            renderIdeas();
+        }
+
+        // Initialize safely on DOM Ready or Load
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initApp);
+        } else {
+            initApp();
+        }
+        window.addEventListener('load', initApp);
+        // Direct invocation fallback
+        setTimeout(initApp, 100);
+    </script>
+</body>
+</html>
